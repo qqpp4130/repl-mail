@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang = "en">
+
+    <head>
+
+        <!-- Force HTTPS -->
+
+        <script>window.location.href.match("https")||(window.location.href=window.location.href.replace("http","https"));</script>
+
+        <!-- Metadata -->
+
+        <meta charset = "utf-8">
+        <meta name = "description" content = "Simple email service for repl.it">
+        <meta name = "viewport" content = "width = device-width">
+
+        <title>repl mail | login</title>
+        <link href = "/public/images/repl-mail.png" rel = "icon"></link>
+        <link href = "/public/login/login.css" rel = "stylesheet"></link>
+
+        <meta property = "og:type" content = "website">
+        <meta property = "og:site_name" content = "repl.it">
+        <meta property = "og:title" content = "repl mail">
+        <meta property = "og:description" content = "Simple email service for repl.it">
+        <meta property = "og:image" content = "https://repl-mail.mreconomical.repl.co/public/images/repl-mail.png">
+
+        <!-- Data and scripts -->
+
+        <script src = "/public/util.js"></script>
+        <script src = "/public/login/login.js"></script>
+
+    </head>
+
+    <body>
+
+        <!-- Check the navigator -->
+
+        <script>if(window.navigator.userAgent.indexOf("MSIE ")>0||window.navigator.userAgent.indexOf("Trident/")>0||window.navigator.userAgent.indexOf("Edge/")>0){for(;document.body.firstChild;)document.body.removeChild(document.body.firstChild);const e=document.createElement("div");throw e.style.position="absolute",e.style.top="30px",e.style.left="50px",e.style.fontSize="30px",e.innerHTML=new Date+"<br>ERROR: UNSUPPORTED BROWSER",document.body.appendChild(e),"ERROR: UNSUPPORTED BROWSER"}else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)){for(;document.body.firstChild;)document.body.removeChild(document.body.firstChild);const e=document.createElement("div");throw e.style.position="absolute",e.style.top="30px",e.style.left="50px",e.style.fontSize="30px",e.innerHTML=new Date+"<br>ERROR: UNSUPPORTED DEVICE",document.body.appendChild(e),"ERROR: UNSUPPORTED DEVICE"}</script>
+
+        <!-- repl auth -->
+
+        <iframe id = "repl_auth" src = "https://repl.it/auth_with_repl_site?domain=repl-mail.mreconomical.repl.co"></iframe>
+
+    </body>
+
+</html>

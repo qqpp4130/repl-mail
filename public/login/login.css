@@ -1,0 +1,25 @@
+/* General stuff */
+
+@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap");
+
+* {
+    font-family: IBM Plex Sans, sans-serif;
+    color: #333333;
+}
+
+/* repl auth iframe */
+
+#repl_auth {
+    position: absolute;
+    top: 50%;
+    left: 0;
+
+    height: 80%;
+    width: 100%;
+
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    transform: translateY(-45%);
+    transition-duration: 300ms;
+}

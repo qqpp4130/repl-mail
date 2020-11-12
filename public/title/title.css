@@ -1,0 +1,99 @@
+/* General stuff */
+
+@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap");
+
+* {
+    font-family: IBM Plex Sans, sans-serif;
+    color: #333333;
+}
+
+body {
+    background-color: #F9F9F9;
+}
+
+/* Title stuff */
+
+#title_screen {
+    display: none;
+}
+
+#title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    text-align: center;
+
+    transform: translate(-50%, -130%);
+}
+
+#main_title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 64px;
+    white-space: nowrap;
+}
+
+#title_logo {
+    height: 80px;
+    width: 80px;
+
+    padding-right: 20px;
+}
+
+#title_text {
+    position: relative;
+    top: 1px;
+}
+
+#title_desc {
+    position: relative;
+    top: 12px;
+
+    line-height: 30px;
+    font-size: 20px;
+}
+
+#get_started {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    height: 60px;
+    width: 210px;
+
+    cursor: pointer;
+    outline: none;
+
+    color: #FFFFFF;
+    font-size: 20px;
+
+    border: none;
+    background-color: #46AEDD;
+    transform: translate(-50%, -10%);
+    transition-duration: 300ms;
+}
+
+#get_started:hover {
+    background-color: #35A7E0;
+}
+
+/* Loading screen */
+
+#loading {
+    display: none;
+}
+
+#loading_logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    height: 256px;
+    width: 256px;
+
+    transform: translate(-50%, -80%);
+}

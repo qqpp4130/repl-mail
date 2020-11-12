@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html lang = "en">
+
+    <head>
+
+        <!-- Force HTTPS -->
+
+        <script>window.location.href.match("https")||(window.location.href=window.location.href.replace("http","https"));</script>
+
+        <!-- Metadata -->
+
+        <meta charset = "utf-8">
+        <meta name = "description" content = "Simple email service for repl.it">
+        <meta name = "viewport" content = "width = device-width">
+
+        <title>repl mail | mail</title>
+        <link href = "/public/images/repl-mail.png" rel = "icon"></link>
+        <link href = "/public/mail/mail.css" rel = "stylesheet"></link>
+
+        <meta property = "og:type" content = "website">
+        <meta property = "og:site_name" content = "repl.it">
+        <meta property = "og:title" content = "repl mail">
+        <meta property = "og:description" content = "Simple email service for repl.it">
+        <meta property = "og:image" content = "https://repl-mail.mreconomical.repl.co/public/images/repl-mail.png">
+
+        <!--
+            Font Awesome Free 5.12.0 by @fontawesome - https://fontawesome.com
+            License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+        -->
+
+        <link href = "https://use.fontawesome.com/releases/v5.12.0/css/all.css" rel = "stylesheet" type = "text/css" crossorigin = "anonymous"></link>
+
+        <!--
+            markdown-it Markdown Text - https://github.com/markdown-it/markdown-it
+        -->
+
+        <script src = "public/markdown-it.min.js"></script>
+
+        <!-- Data and scripts -->
+
+        <script src = "/public/mail/config.js"></script>
+        <script src = "/public/util.js"></script>
+        <script src = "/public/mail/methods.js"></script>
+        <script src = "/public/mail/events.js"></script>
+        <script src = "/public/mail/mail.js"></script>
+
+    </head>
+
+    <body>
+
+        <!-- Check the navigator -->
+
+        <script>if(window.navigator.userAgent.indexOf("MSIE ")>0||window.navigator.userAgent.indexOf("Trident/")>0||window.navigator.userAgent.indexOf("Edge/")>0){for(;document.body.firstChild;)document.body.removeChild(document.body.firstChild);const e=document.createElement("div");throw e.style.position="absolute",e.style.top="30px",e.style.left="50px",e.style.fontSize="30px",e.innerHTML=new Date+"<br>ERROR: UNSUPPORTED BROWSER",document.body.appendChild(e),"ERROR: UNSUPPORTED BROWSER"}else if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)){for(;document.body.firstChild;)document.body.removeChild(document.body.firstChild);const e=document.createElement("div");throw e.style.position="absolute",e.style.top="30px",e.style.left="50px",e.style.fontSize="30px",e.innerHTML=new Date+"<br>ERROR: UNSUPPORTED DEVICE",document.body.appendChild(e),"ERROR: UNSUPPORTED DEVICE"}</script>
+
+        <!-- Text measuring -->
+
+        <div id = "measure"></div>
+
+        <!-- Loading screen -->
+
+        <div id = "loading">
+            <img id = "loading_logo" src = "/public/images/loading.gif" alt = "loading"></img>
+        </div>
+
+        <!-- Mail screen -->
+
+        <div id = "mail_screen">
+
+            <!-- Topbar -->
+
+            <div id = "topbar">
+
+                <a id = "logo" href = "https://repl-mail.mreconomical.repl.co">
+                    <img id = "topbar_logo" src = "/public/images/repl-mail.png" alt = "repl mail"></img>
+                    repl mail
+                </a>
+
+                <div class = "button" id = "account">
+
+                    <img id = "pfp" alt = "pfp"></img>
+                    <div id = "username"></div>
+
+                    <div id = "account_menu">
+
+                        <a class = "button menuButton" id = "menu_profile" target = "_blank">Profile</a>
+                        <a class = "button menuButton" id = "menu_account" href = "https://repl.it/account" target = "_blank">Account</a>
+                        <div class = "button menuButton" id = "menu_logout">Logout</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Mail content -->
+
+            <div id = "content">
+
+                <div id = "mail_display">
+
+                    <div id = "nav">
+
+                        <div class = "navButtonActive" id = "nav_inbox">
+                            
+                            <i class = "fas fa-envelope"></i>
+                            <div class = "navButtonText">Inbox</div>
+                            
+                        </div>
+
+                        <div class = "navButton" id = "nav_sent">
+                            
+                            <i class = "fas fa-paper-plane"></i>
+                            <div class = "navButtonText">Sent</div>
+                            
+                        </div>
+
+                        <div class = "navButton" id = "nav_archive">
+                            
+                            <i class = "fas fa-mail-bulk"></i>
+                            <div class = "navButtonText">Archive</div>
+                            
+                        </div>
+
+                    </div>
+
+                    <div id = "new_message_container">
+
+                        <button class = "button buttonBlue" id = "new_message">
+                            <i class = "fas fa-plus" id = "new_message_plus"></i>
+                            new message
+                        </button>
+
+                    </div>
+
+                    <div id = "mail">
+
+                        <div class = "mailbox mailboxActive" id = "inbox">
+                            <div class = "mailContent" id = "inbox_mail"></div>
+                        </div>
+
+                        <div class = "mailbox mailboxHidden" id = "sent">
+                            <div class = "mailContent" id = "sent_mail"></div>
+                        </div>
+
+                        <div class = "mailbox mailboxHidden" id = "archive">
+                            <div class = "mailContent" id = "archive_mail"></div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+                <!-- Message display -->
+
+                <div id = "message">
+
+                    <div id = "controls">
+
+                        <div class = "messageControl" id = "message_back" title = "Back">
+                            <i class = "fas fa-arrow-left fa-2x"></i>
+                        </div>
+
+                        <div class = "messageControl" id = "message_archive" title = "Archive">
+                            <i class = "fas fa-mail-bulk fa-2x"></i>
+                        </div>
+
+                        <div class = "messageControl" id = "message_delete" title = "Delete">
+                            <i class = "fas fa-trash-alt fa-2x"></i>
+                        </div>
+
+                        <div class = "messageControl" id = "message_report" title = "Report">
+                            <i class = "fas fa-exclamation-triangle fa-2x"></i>
+                        </div>
+
+                        <div class = "messageControl" id = "message_reply" title = "Reply">
+                            <i class = "fas fa-reply fa-2x"></i>
+                        </div>
+
+                    </div>
+                    
+                    <div id = "message_content">
+
+                        <div id = "mail_title"></div>
+
+                        <div id = "mail_info">
+
+                            <img id = "sender_pfp" src = "/public/images/blank.png" alt = "pfp"></img>
+                            
+                            <div id = "person_info">
+                                
+                                <div id = "sender"></div>
+                                <div id = "recipients"></div>
+
+                            </div>
+
+                            <div id = "timestamp"></div>
+
+                        </div>
+
+                        <div id = "mail_content"></div>
+
+                    </div>
+
+                </div>
+                
+            </div>
+
+            <!-- Compose modal -->
+
+            <div class = "modal" id = "compose">
+
+                <div id = "compose_editor">
+
+                    <i class = "button fas fa-times fa-2x" id = "compose_exit"></i>
+                    <div id = "compose_title">Compose Message</div>
+
+                    <input class = "textbox editorInput" id = "editor_title" type = "text" maxlength = "100" placeholder = "Title" autocomplete = "off"></input>
+                    <input class = "textbox editorInput" id = "editor_recipients" type = "text" maxlength = "20" placeholder = "Recipients" autocomplete = "off"></input>
+                    
+                    <div id = "send_recipients"></div>
+
+                    <textarea class = "textbox" id = "editor_body" placeholder = "Your email here" autocomplete = "off"></textarea>
+
+                    <div id = "editor_footer">
+
+                        <div id = "recipient_note">NOTE: You can only send messages to users that have logged in to repl mail at least once!</div>
+                        <button class = "button buttonBlue" id = "send_message">Send</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Confirm modal -->
+
+            <div class = "modal" id = "confirm">
+
+                <div id = "confirm_message">
+
+                    <div id = "confirm_title"></div>
+                    <div id = "confirm_desc"></div>
+
+                    <div id = "confirm_control">
+
+                        <button class = "button buttonGray" id = "confirm_cancel">Cancel</button>
+                        <button class = "button" id = "confirm_confirm">Confirm</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
